@@ -3,6 +3,9 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use League\ColorExtractor\Color;
+use League\ColorExtractor\Palette;
+use League\ColorExtractor\ColorExtractor;
 
 class IndexController extends Controller
 {
@@ -32,6 +35,40 @@ class IndexController extends Controller
             }
         }
 
-        return view('index', ['data' => $data, 'images' => $images]);
+        // $url = 'http://mcallister.cms.avbdev.com/storage/'.$images[0]->attributes->image;
+        // $palette = Palette::fromFilename($url);
+        // $extractor = new ColorExtractor($palette);
+        // $exColors = $extractor->extract(5);
+
+        // $colors = array();
+        // foreach ($exColors as $color) {
+        //     $hexValueColor = Color::fromIntToHex($color);
+        //     $colors[] = $hexValueColor;
+        // }
+
+        $colors = [
+            '#124578',
+            '#987654',
+            '#ff0000',
+            '#00ff00',
+            '#0000ff'
+        ];
+
+        return view('index', ['data' => $data, 'images' => $images, 'colors' => $colors]);
+    }
+
+    public function getColors($image)
+    {
+        $url = 'http://mcallister.cms.avbdev.com/storage/'.$image;
+        $palette = Palette::fromFilename($url);
+        $extractor = new ColorExtractor($palette);
+        $exColors = $extractor->extract(5);
+
+        $colors = array();
+        foreach ($exColors as $color) {
+            $hexValueColor = Color::fromIntToHex($color);
+            $colors[] = $hexValueColor;
+        }
+        return $colors;
     }
 }
