@@ -12,7 +12,7 @@ class IndexController extends Controller
     /**
      * Show the index.
      */
-    public function index()
+    public function index(Request $request)
     {
         // return view('welcome');
         $url = "http://mcallister.cms.avbdev.com/api/pages/about-us";
@@ -35,40 +35,36 @@ class IndexController extends Controller
             }
         }
 
-        // $url = 'http://mcallister.cms.avbdev.com/storage/'.$images[0]->attributes->image;
-        // $palette = Palette::fromFilename($url);
-        // $extractor = new ColorExtractor($palette);
-        // $exColors = $extractor->extract(5);
-
-        // $colors = array();
-        // foreach ($exColors as $color) {
-        //     $hexValueColor = Color::fromIntToHex($color);
-        //     $colors[] = $hexValueColor;
-        // }
-
-        $colors = [
-            '#124578',
-            '#987654',
-            '#ff0000',
-            '#00ff00',
-            '#0000ff'
-        ];
-
-        return view('index', ['data' => $data, 'images' => $images, 'colors' => $colors]);
-    }
-
-    public function getColors($image)
-    {
-        $url = 'http://mcallister.cms.avbdev.com/storage/'.$image;
-        $palette = Palette::fromFilename($url);
-        $extractor = new ColorExtractor($palette);
-        $exColors = $extractor->extract(5);
-
+        $currentImage = 'none';
         $colors = array();
-        foreach ($exColors as $color) {
-            $hexValueColor = Color::fromIntToHex($color);
-            $colors[] = $hexValueColor;
+        if($request->input('image') != 'none') {
+            $currentImage = $request->input('image');
+            $url = 'http://mcallister.cms.avbdev.com/storage/'.$images[$currentImage]->attributes->image;
+            $palette = Palette::fromFilename($url);
+            $extractor = new ColorExtractor($palette);
+            $exColors = $extractor->extract(5);
+
+            foreach ($exColors as $color) {
+                $hexValueColor = Color::fromIntToHex($color);
+                $colors[] = $hexValueColor;
+            }
+            // $colors = [
+            //     '#197346',
+            //     '#829137',
+            //     '#f0000f',
+            //     '#0f00f0',
+            //     '#0ff0ff'
+            // ];
+        } else {
+            $colors = [
+                '#00ffff',
+                '#0100ff',
+                '#acacac',
+                '#707070',
+                '#343434'
+            ];
         }
-        return $colors;
+
+        return view('index', ['data' => $data, 'images' => $images, 'colors' => $colors, 'currentImage' => $currentImage]);
     }
 }

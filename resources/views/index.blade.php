@@ -39,15 +39,28 @@
         </div>
 
         <div style="margin: 30px">
+        {{ $currentImage }}
             @foreach ($colors as $color)
                 <p style="color: white; background: {{ $color }}">Color: {{ $color }}</p>
             @endforeach
         </div>
 
         <div class="">
-            @foreach ($images as $image)
-                <p>This is image {{ $image->attributes->image }}</p>
-            @endforeach
+            <form action="/" method="get">
+                <select name="image" class="select-box" autocomplete="off">
+                    <option value="none" {{ $currentImage == 'none' ? 'selected' : '' }}>-- Default Colours --</option>
+                    @foreach ($images as $key => $image)
+                        <option value="{{ $key }}" {{ $currentImage == $key ? 'selected' : '' }}>{{ $image->attributes->image }}</option>
+                    @endforeach
+                </select>
+            </form>
         </div>
+        
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js" integrity="sha512-894YE6QWD5I59HgZOGReFYm4dnWc1Qt5NtvYSaNcOP+u1T9qYdvdihz0PPSiiqn/+/3e7Jo4EaG7TubfWGUrMQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+        <script>
+        $(document).on('change', 'select.select-box', function (e) {
+            $(this).closest('form').submit();
+        });
+        </script>
     </body>
 </html>
