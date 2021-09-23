@@ -37,7 +37,7 @@ class IndexController extends Controller
 
         $currentImage = 'none';
         $colors = array();
-        if($request->input('image') != 'none') {
+        if($request->input('image') && $request->input('image') != 'none') {
             $currentImage = $request->input('image');
             $url = 'http://mcallister.cms.avbdev.com/storage/'.$images[$currentImage]->attributes->image;
             $palette = Palette::fromFilename($url);
