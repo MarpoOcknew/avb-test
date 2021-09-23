@@ -42,13 +42,17 @@
 
                 <div class="col-md-3 text-end">
                     <form action="/" method="get">
-                        <label for="image">Colour Scheme</label>
-                        <select name="image" class="form-control select-box" autocomplete="off">
-                            <option value="none" {{ $currentImage == 'none' ? 'selected' : '' }}>-- Default Colours --</option>
-                            @foreach ($images as $key => $image)
-                                <option value="{{ $key }}" {{ $currentImage == $key ? 'selected' : '' }}>{{ $image->attributes->image }}</option>
-                            @endforeach
-                        </select>
+                        <div class="row">
+                            <label for="image" class="col col-form-label">Colour Scheme</label>
+                            <div class="col">
+                                <select name="image" class="form-control select-box" autocomplete="off">
+                                    <option value="none" {{ $currentImage == 'none' ? 'selected' : '' }}>-- Default Colours --</option>
+                                    @foreach ($images as $key => $image)
+                                        <option value="{{ $key }}" {{ $currentImage == $key ? 'selected' : '' }}>{{ $image->attributes->image }}</option>
+                                    @endforeach
+                                </select>
+                            </div>
+                        </div>
                     </form>
                 </div>
             </header>
