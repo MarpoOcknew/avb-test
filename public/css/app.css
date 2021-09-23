@@ -7,11 +7,13 @@ body {
 
 .text-primary,
 .link-primary {
-    color:  var(--primary-color);
+    color:  var(--primary-color) !important;
 }
+
+a.nav-link.active,
 .text-secondary,
 .link-secondary {
-    color:  var(--secondary-color);
+    color:  var(--secondary-color) !important;
 }
 
 li.active a {
@@ -21,7 +23,39 @@ li.active a {
 .bg-primary {
     background-color: var(--primary-color) !important;
 }
-.secondary {
+.bg-secondary {
     background-color: var(--secondary-color) !important;
+}
+.bg-tertiary {
+    background-color: var(--tertiary-color) !important;
+}
+
+h1,h2,h3,h4 {
+    color:  var(--secondary-color);
+}
+
+.border-primary {
+    border-color: var(--primary-color);
+}
+
+.white-rounded-bg {
+    border-radius: 0 0 0 50px;
+    background: white;
+    margin-bottom: 110px;
+}
+
+.white-rounded-bg::after {
+    content: '';
+    display: block;
+    height: 150px;
+    background: var(--primary-color);
+    margin-top: -50px;
+    width: 100vw;
+    position: absolute;
+    left: 50%;
+    right: 50%;
+    margin-left: -50vw;
+    margin-right: -50vw;
+    z-index: -1;
 }
 
